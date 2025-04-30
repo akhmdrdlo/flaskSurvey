@@ -1,6 +1,15 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, send_file
 import json
 import os
+import io
+import csv
+import firebase_admin
+from firebase_admin import credentials, firestore
+
+cred = credentials.Certificate('firestore-key.json')
+firebase_admin.initialize_app(cred)
+
+db = firestore.client()
 
 app = Flask(__name__)
 
@@ -14,28 +23,63 @@ def terimakasih():
 
 @app.route('/submit', methods=['POST'])
 def submit():
-    data = request.get_json(silent=True)
+    data = request.get_json()
 
     if not data:
-        return jsonify({"error": "Invalid or missing JSON data"}), 400
+        return jsonify({"error": "Invalid data"}), 400
 
-    # Simpan ke file JSON lokal
-    responses_file = "responses.json"
-    all_data = []
+    try:
+        db.collection('responses').add({
+            **data,
+            'timestamp': firestore.SERVER_TIMESTAMP
+        })
+        return jsonify({"status": "success", "redirect": "/terimakasih"}), 200
+    except Exception as e:
+        print(f"Firestore error: {e}")
+        return jsonify({"error": "Gagal menyimpan data"}), 500
 
-    if os.path.exists(responses_file):
-        with open(responses_file, 'r', encoding='utf-8') as f:
-            try:
-                all_data = json.load(f)
-            except json.JSONDecodeError:
-                all_data = []
+@app.route('/admin/export')
+def admin_export_page():
+    docs = db.collection("responses").stream()
 
-    all_data.append(data)
+    data_list = []
+    for doc in docs:
+        d = doc.to_dict()
+        data_list.append({
+            "nama": d.get("nama", ""),
+            "role": d.get("role", ""),
+            "kelas": d.get("kelas", "-"),
+            "provinsi": d.get("provinsi", ""),
+            "kabupaten": d.get("kabupaten", "")
+        })
 
-    with open(responses_file, 'w', encoding='utf-8') as f:
-        json.dump(all_data, f, indent=2, ensure_ascii=False)
+    return render_template("export.html", data=data_list)
 
-    return jsonify({
-        "status": "success",
-        "redirect": "/terimakasih"
-    }), 200
+
+@app.route('/download_csv')
+def download_csv():
+    # Ambil data dari Firestore
+    docs = db.collection("responses").stream()
+
+    # Tentukan urutan kolom
+    field_order = [
+        "nama", "role", "provinsi", "kabupaten", "kelas"
+    ] + [f"q{i}" for i in range(1, 44)] + ["timestamp"]
+
+    # Buat file CSV ke memory
+    output = io.StringIO()
+    writer = csv.DictWriter(output, fieldnames=field_order)
+    writer.writeheader()
+
+    for doc in docs:
+        data = doc.to_dict()
+        row = {key: data.get(key, "") for key in field_order}
+        writer.writerow(row)
+
+    # Siapkan sebagai file download
+    mem = io.BytesIO()
+    mem.write(output.getvalue().encode('utf-8'))
+    mem.seek(0)
+    output.close()
+
+    return send_file(mem, mimetype='text/csv', download_name='hasil_survey.csv', as_attachment=True)

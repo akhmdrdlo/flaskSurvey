@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Export Data Survey</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+</head>
+<body class="bg-gray-50 p-10">
+  <div class="max-w-7xl mx-auto bg-white p-8 shadow-md rounded-lg">
+    <h1 class="text-2xl font-bold text-blue-700 mb-6 text-center">Export Data Survei</h1>
+
+    <div class="mb-4 flex flex-wrap gap-4 justify-between">
+      <a href="/download_csv" class="px-6 py-3 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition">
+        📥 Download CSV
+      </a>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 w-full">
+        <div class="relative">
+          <select id="filter-provinsi" class="select2 w-full p-2 border rounded-md">
+            <option value="">Semua Provinsi</option>
+          </select>
+        </div>
+        <div class="relative">
+          <select id="filter-kabupaten" class="select2 w-full p-2 border rounded-md">
+            <option value="">Semua Kabupaten</option>
+          </select>
+        </div>
+        <div class="relative">
+          <select id="filter-role" class="select2 w-full p-2 border rounded-md">
+            <option value="">Semua Role</option>
+          </select>
+        </div>
+        <div class="relative">
+          <select id="filter-kelas" class="select2 w-full p-2 border rounded-md">
+            <option value="">Semua Kelas</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="overflow-x-auto">
+      <table class="min-w-full divide-y divide-gray-200 text-sm">
+        <thead class="bg-blue-100">
+          <tr>
+            <th class="px-4 py-2 text-left">No</th>
+            <th class="px-4 py-2 text-left">Nama</th>
+            <th class="px-4 py-2 text-left">Role</th>
+            <th class="px-4 py-2 text-left">Kelas</th>
+            <th class="px-4 py-2 text-left">Provinsi</th>
+            <th class="px-4 py-2 text-left">Kabupaten</th>
+          </tr>
+        </thead>
+        <tbody id="table-body" class="divide-y divide-gray-200">
+          {% for item in data %}
+          <tr data-provinsi="{{ item.provinsi }}" data-role="{{ item.role }}" data-kabupaten="{{ item.kabupaten }}" data-kelas="{{ item.kelas }}">
+            <td class="px-4 py-2">{{ loop.index }}</td>
+            <td class="px-4 py-2">{{ item.nama }}</td>
+            <td class="px-4 py-2 capitalize">{{ item.role }}</td>
+            <td class="px-4 py-2">{{ item.kelas }}</td>
+            <td class="px-4 py-2">{{ item.provinsi }}</td>
+            <td class="px-4 py-2">{{ item.kabupaten }}</td>
+          </tr>
+          {% else %}
+          <tr><td colspan="6" class="text-center px-4 py-6 text-gray-500">Belum ada data.</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+  <script>
+    $(document).ready(function () {
+        $('#filter-provinsi').select2({ width: 'resolve', placeholder: "Pilih Provinsi" });
+        $('#filter-kabupaten').select2({ width: 'resolve', placeholder: "Pilih Kabupaten" });
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+      const rows = Array.from(document.querySelectorAll("#table-body tr"));
+
+      // ambil semua nilai unik dari kolom
+      const getUniqueValues = (selector) => {
+        const values = rows.map(row => row.getAttribute(selector)).filter(Boolean);
+        return [...new Set(values)].sort();
+      };
+
+      const fillSelect = (id, attribute) => {
+        const select = document.getElementById(id);
+        getUniqueValues(attribute).forEach(val => {
+          const opt = document.createElement("option");
+          opt.value = val;
+          opt.textContent = val;
+          select.appendChild(opt);
+        });
+      };
+
+      fillSelect("filter-provinsi", "data-provinsi");
+      fillSelect("filter-role", "data-role");
+      fillSelect("filter-kabupaten", "data-kabupaten");
+      fillSelect("filter-kelas", "data-kelas");
+
+      const filters = {
+        "data-provinsi": "",
+        "data-role": "",
+        "data-kabupaten": "",
+        "data-kelas": ""
+      };
+
+      const applyFilters = () => {
+        rows.forEach(row => {
+          let visible = true;
+          for (const key in filters) {
+            if (filters[key] && row.getAttribute(key) !== filters[key]) {
+              visible = false;
+              break;
+            }
+          }
+          row.style.display = visible ? "" : "none";
+        });
+      };
+
+      ["provinsi", "role", "kabupaten", "kelas"].forEach(k => {
+        document.getElementById(`filter-${k}`).addEventListener("change", e => {
+          filters[`data-${k}`] = e.target.value;
+          applyFilters();
+        });
+      });
+    });
+  </script>
+</body>
+</html>
