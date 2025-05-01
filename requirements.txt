@@ -1,3 +1,7 @@
-Flask==2.2.5
-gunicorn==20.1.0
-google-cloud-firestore==2.12.0
+Flask
+gunicorn
+google.cloud
+google-cloud-firestore
+firebase_admin
+csv
+io
