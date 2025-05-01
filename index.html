@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Survei Kepuasan</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+  <style>
+    .radio-input:checked + .radio-label {
+      font-weight: bold;
+      color: #1d31e0;
+    }
+    .hidden { display: none; }
+  </style>
+  <!-- Ensure the script path is correct or remove if unn....................................ecessary -->
+  <script src="script.js"></script>
+</head>
+<body class="bg-gradient-to-b from-blue-200 to-white font-sans">
+  <div class="min-h-screen flex flex-col items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-3xl w-full space-y-8 p-6 bg-white rounded-xl shadow-lg relative">
+      <div class="text-center">
+        <h2 class="mt-6 text-3xl font-bold text-black-700">Kuesioner Implementasi Ektiologi di Madrasah</h2>
+        <p class="mt-2 text-sm text-gray-400">Silakan isi identitas Anda dan lanjutkan mengisi survei sesuai jenjang Anda.</p>
+        <hr class="mt-4 border-gray-300">
+      </div>
+
+      <!-- Form Identitas -->
+      <div id="form-identitas" class="space-y-4">
+        <input type="text" id="nama" placeholder="Nama" class="w-full p-2 border rounded-md">
+        <select id="role" class="w-full p-2 border rounded-md" onchange="filterKelas()">
+          <option value="">-- Kamu Sebagai Apa? --</option>
+          <option value="guru">Guru</option>
+          <option value="MI">Siswa MI</option>
+          <option value="MTs">Siswa MTs</option>
+          <option value="MA">Siswa MA</option>
+        </select>
+        <div id="kelas" class="space-y-2">
+          <p class="font-semibold">Pilih Kelas Anda:</p>
+          <div class="flex flex-wrap gap-2">
+            <label class="flex items-center space-x-2 kelas-option" data-role="MI">
+              <input type="radio" name="kelas" value="5" class="radio-input">
+              <span class="radio-label">Kelas 5</span>
+            </label>
+            <label class="flex items-center space-x-2 kelas-option" data-role="MI">
+              <input type="radio" name="kelas" value="6" class="radio-input">
+              <span class="radio-label">Kelas 6</span>
+            </label>
+            <label class="flex items-center space-x-2 kelas-option" data-role="MTs">
+              <input type="radio" name="kelas" value="7" class="radio-input">
+              <span class="radio-label">Kelas 7</span>
+            </label>
+            <label class="flex items-center space-x-2 kelas-option" data-role="MTs">
+              <input type="radio" name="kelas" value="8" class="radio-input">
+              <span class="radio-label">Kelas 8</span>
+            </label>
+            <label class="flex items-center space-x-2 kelas-option" data-role="MTs">
+              <input type="radio" name="kelas" value="9" class="radio-input">
+              <span class="radio-label">Kelas 9</span>
+            </label>
+            <label class="flex items-center space-x-2 kelas-option" data-role="MA">
+              <input type="radio" name="kelas" value="10" class="radio-input">
+              <span class="radio-label">Kelas 10</span>
+            </label>
+            <label class="flex items-center space-x-2 kelas-option" data-role="MA">
+              <input type="radio" name="kelas" value="11" class="radio-input">
+              <span class="radio-label">Kelas 11</span>
+            </label>
+            <label class="flex items-center space-x-2 kelas-option" data-role="MA">
+              <input type="radio" name="kelas" value="12" class="radio-input">
+              <span class="radio-label">Kelas 12</span>
+            </label>
+          </div>
+        </div>
+        <select id="select-provinsi" class="select2 w-full p-2 border rounded-md "></select>
+        <select id="select-kabupaten" class="select2 w-full p-2 border rounded-md"></select>
+        <button onclick="mulaiSurvey()" class="w-full py-2 px-4 bg-blue-500 text-white rounded-md">Mulai Survey</button>
+      </div>
+      <!-- Form Survey -->
+      <div id="form-survey" class="hidden">
+        <form id="surveyForm" class="space-y-4"></form>
+        <div class="absolute top-4 right-4 left-4 flex items-center justify-between text-sm text-gray-600">
+          <div class="flex-1 mx-4 h-1 bg-gray-200 rounded-full overflow-hidden">
+            <div id="progress-bar" class="h-full bg-blue-500 transition-all duration-300" style="width: 0%"></div>
+          </div>
+          <span id="progress-indicator" class="font-bold">Halaman 1</span>
+        </div>
+        <br>
+        <hr>
+        <div class="flex justify-between">
+          <button id="prev-btn" class="mt-4 py-2 px-4 border rounded-md">Sebelumnya</button>
+          <button id="next-btn" class="mt-4 py-2 px-4 bg-blue-500 text-white font-bold rounded-md">Selanjutnya</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <footer class="bg-white text-center py-4 mt-8 shadow-lg">
+    <p class="text-gray-600">© 2025 Akhmad Ridlo. All rights reserved.</p>
+  </footer>
+
+  <!-- Loading Spinner -->
+<div id="loadingSpinner" class="hidden fixed inset-0 bg-white bg-opacity-90 flex flex-col items-center justify-center z-50">
+  <div class="w-16 h-16 border-4 border-blue-400 border-dashed rounded-full animate-spin shadow-lg"></div>
+  <p class="mt-4 text-blue-700 text-lg animate-pulse">Menyimpan jawaban Anda...</p>
+</div>
+
+<!-- Toast Notifikasi -->
+<div id="toast" class="hidden fixed top-6 left-1/2 transform -translate-x-1/2 bg-red-500 text-white px-6 py-3 rounded-lg shadow-lg text-base animate-fade-in-out z-50">
+  Harap isi semua pertanyaan terlebih dahulu.
+</div>
+
+<style>
+@keyframes fadeInOut {
+  0% { opacity: 0; transform: translateY(10px); }
+  10% { opacity: 1; transform: translateY(0); }
+  90% { opacity: 1; }
+  100% { opacity: 0; transform: translateY(10px); }
+}
+.animate-fade-in-out {
+  animation: fadeInOut 3s ease-in-out forwards;
+}
+</style>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+  <script>
+    function filterKelas() {
+      const role = document.getElementById('role').value;
+      const kelasOptions = document.querySelectorAll('.kelas-option');
+      kelasOptions.forEach(option => {
+        if (role === '' || option.dataset.role === role) {
+          option.style.display = 'flex';
+        } else {
+          option.style.display = 'none';
+        }
+      });
+    }
+
+    $(document).ready(function() {
+      $('#select-provinsi').select2({
+        placeholder: 'Pilih Provinsi',
+        width: '100%'
+      });
+
+      $('#select-kabupaten').select2({
+        placeholder: 'Pilih Kabupaten/Kota',
+        width: '100%'
+      });
+    });
+
+    $(document).ready(function() {
+      $.getJSON('https://ibnux.github.io/data-indonesia/provinsi.json', function(data) {
+        $('#select-provinsi').empty().append('<option></option>'); 
+        $.each(data, function(index, provinsi) {
+          $('#select-provinsi').append(new Option(provinsi.nama, provinsi.id));
+        });
+      });
+
+      $('#select-provinsi').on('change', function() {
+        var provinsiId = $(this).val();
+        if (provinsiId) {
+          $.getJSON('https://ibnux.github.io/data-indonesia/kabupaten/' + provinsiId + '.json', function(data) {
+            $('#select-kabupaten').empty().append('<option></option>'); 
+            $.each(data, function(index, kabupaten) {
+              $('#select-kabupaten').append(new Option(kabupaten.nama, kabupaten.id));
+            });
+          });
+        } else {
+          $('#select-kabupaten').empty().append('<option>-- Tidak ada Data --</option>');
+        }
+      });
+    });
+
+
+    document.getElementById("next-btn").addEventListener("click", () => {
+  if (!validateCurrentPage()) {
+    showToast("Harap isi semua pertanyaan terlebih dahulu sebelum lanjut.");
+    return;
+  }
+
+  saveAnswers();
+
+  if (currentPage < groupedBySection.length - 1) {
+    currentPage++;
+    renderQuestions();
+  } else {
+    submitSurvey();
+  }
+});
+
+    document.getElementById("prev-btn").addEventListener("click", () => {
+      saveAnswers();
+      if (currentPage > 0) {
+        currentPage--;
+        renderQuestions();
+      }
+    });
+
+    function showToast(message) {
+  const toast = document.getElementById('toast');
+  toast.textContent = message;
+  toast.classList.remove('hidden');
+
+  // Sembunyikan otomatis setelah animasi selesai (3s)
+  setTimeout(() => {
+    toast.classList.add('hidden');
+  }, 3000);
+}
+
+  </script>
+
+</body>
+</html>
