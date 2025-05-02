@@ -3,5 +3,3 @@ gunicorn
 google.cloud
 google-cloud-firestore
 firebase_admin
-csv
-io
