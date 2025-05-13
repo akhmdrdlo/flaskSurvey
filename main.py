@@ -26,7 +26,7 @@ def submit():
     data = request.get_json()
 
     if not data:
-        return jsonify({"error": "Invalid data"}), 400
+        return jsonify({"status": "error", "message": "Invalid data"}), 400
 
     try:
         db.collection('responses').add({
@@ -36,7 +36,7 @@ def submit():
         return jsonify({"status": "success", "redirect": "/terimakasih"}), 200
     except Exception as e:
         print(f"Firestore error: {e}")
-        return jsonify({"error": "Gagal menyimpan data"}), 500
+        return jsonify({"status": "error", "message": "Server error"}), 500
 
 @app.route('/admin/export')
 def admin_export_page():

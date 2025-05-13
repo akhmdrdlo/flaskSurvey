@@ -27,10 +27,10 @@ function mulaiSurvey() {
   const kabupatenSelect = document.getElementById("select-kabupaten");
   const kelas = document.querySelector('input[name="kelas"]:checked')?.value;
 
-  if (!nama || !selectedRole || !provinsiSelect.value || !kabupatenSelect.value || (selectedRole !== "guru" && !kelas)) {
+  if (!selectedRole || !provinsiSelect.value || !kabupatenSelect.value || (selectedRole !== "guru" && !kelas)) {
     const toast = document.createElement("div");
     toast.className = "toast fixed top-4 right-4 bg-red-500 text-white px-4 py-2 rounded shadow-lg opacity-0 transition-opacity duration-300";
-    toast.innerText = "Harap isi identitas lengkap terlebih dahulu (Nama, Role, Provinsi, Kabupaten, dan Kelas jika bukan guru).";
+    toast.innerText = "Harap isi identitas lengkap terlebih dahulu (Role, Provinsi, Kabupaten, dan Kelas jika bukan guru).";
     document.body.appendChild(toast);
 
     // Trigger fade-in animation
@@ -105,10 +105,12 @@ function mulaiSurvey() {
     sectionTitle.innerText = section[0].section;
     container.appendChild(sectionTitle);
 
+  let questionNumber = 1; 
+
   section.forEach(q => {
     const wrapper = document.createElement("div");
     wrapper.className = "mb-8";
-    wrapper.innerHTML = `<p class='text-md font-medium text-gray-800'>${q.pertanyaan}</p>`;
+    wrapper.innerHTML = `<p class='text-md font-medium text-gray-800'>${questionNumber}. ${q.pertanyaan}</p>`; // Add question number
 
     if (q.tipe === "text") {
       wrapper.innerHTML += `<input type='text' name='q${q.id}' class='w-full p-2 border rounded-md' value='${answers[`q${q.id}`] || ""}'>`;
@@ -117,33 +119,33 @@ function mulaiSurvey() {
       radioContainer.className = "flex flex-wrap gap-4";
 
       q.opsi.forEach(opt => {
-      const checked = answers[`q${q.id}`] === opt ? "checked" : "";
-      const radioWrapper = document.createElement("label");
-      radioWrapper.className = "flex items-center gap-2";
-      radioWrapper.innerHTML = `<input type='radio' name='q${q.id}' value='${opt}' ${checked} class='mr-2'>${opt}`;
-      radioContainer.appendChild(radioWrapper);
+        const checked = answers[`q${q.id}`] === opt ? "checked" : "";
+        const radioWrapper = document.createElement("label");
+        radioWrapper.className = "flex items-center gap-2";
+        radioWrapper.innerHTML = `<input type='radio' name='q${q.id}' value='${opt}' ${checked} class='mr-2'>${opt}`;
+        radioContainer.appendChild(radioWrapper);
       });
 
       wrapper.appendChild(radioContainer);
     } else if (q.tipe === "checkbox") {
       q.opsi.forEach(opt => {
-      const isChecked = (answers[`q${q.id}`] || []).includes(opt);
-      wrapper.innerHTML += `<label class='block'><input type='checkbox' name='q${q.id}' value='${opt}' ${isChecked ? "checked" : ""} class='mr-2'>${opt}</label>`;
-      if (opt === "Lainnya") {
-        wrapper.innerHTML += `<input type='text' name='q${q.id}_lainnya' value='${answers[`q${q.id}_lainnya`] || ""}' class='w-full p-2 mt-2 border rounded-md' placeholder='Tulis lainnya jika ada'>`;
-      }
+        const isChecked = (answers[`q${q.id}`] || []).includes(opt);
+        wrapper.innerHTML += `<label class='block'><input type='checkbox' name='q${q.id}' value='${opt}' ${isChecked ? "checked" : ""} class='mr-2'>${opt}</label>`;
+        if (opt === "Lainnya") {
+          wrapper.innerHTML += `<input type='text' name='q${q.id}_lainnya' value='${answers[`q${q.id}_lainnya`] || ""}' class='w-full p-2 mt-2 border rounded-md' placeholder='Tulis lainnya jika ada'>`;
+        }
       });
-    }
-    else if (q.tipe === "textarea") {
+    } else if (q.tipe === "textarea") {
       wrapper.innerHTML += `<textarea name='q${q.id}' class='w-full p-2 border rounded-md' rows='4'>${answers[`q${q.id}`] || ""}</textarea>`;
     }
-  
+
     const separator = document.createElement("hr");
     separator.className = "my-6 border-gray-300";
 
     container.appendChild(wrapper);
     container.appendChild(separator);
 
+    questionNumber++; 
   });
 
   const nextBtn = document.getElementById("next-btn");
@@ -213,7 +215,21 @@ function mulaiSurvey() {
       },
       body: JSON.stringify(answers)
     })
-    .then(response => response.json())
+    .then(async response => {
+      const contentType = response.headers.get("content-type");
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+    
+      if (contentType && contentType.includes("application/json")) {
+        return response.json();
+      } else {
+        const text = await response.text();
+        console.error("Unexpected response (not JSON):", text);
+        throw new Error("Invalid server response");
+      }
+    })    
     .then(data => {
       if (data.status === "success") {
         document.getElementById('loadingSpinner').classList.remove('hidden');
@@ -230,7 +246,7 @@ function mulaiSurvey() {
       alert("Terjadi kesalahan saat mengirim data.");
     });
   }
-  
+
   
   
 

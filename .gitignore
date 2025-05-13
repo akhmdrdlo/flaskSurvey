@@ -67,3 +67,8 @@ node_modules/
 
 # dataconnect generated files
 .dataconnect
+dataconnect/dataconnect.yaml
+dataconnect/connector/connector.yaml
+dataconnect/connector/mutations.gql
+dataconnect/connector/queries.gql
+dataconnect/schema/schema.gql
