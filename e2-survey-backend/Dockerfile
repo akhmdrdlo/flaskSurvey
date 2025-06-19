@@ -1,17 +1,15 @@
+# Base image Python 3.11
 FROM python:3.11-slim
 
-# Set working directory
+# Buat direktori kerja
 WORKDIR /app
 
-# Copy dependency & install
+# Salin file requirements dan install dependency
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy the application
+# Salin semua file project ke dalam container
 COPY . .
 
-# Expose the default port Cloud Run uses
-EXPOSE 8080
-
-# Gunicorn command (assume your app object is in app.main)
-CMD ["gunicorn", "-b", "0.0.0.0:8080", "app.main:app"]
+# Jalankan aplikasi Flask di dalam container
+CMD ["python", "main.py"]
