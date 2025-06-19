@@ -5,6 +5,12 @@ import io
 import csv
 import firebase_admin
 from firebase_admin import credentials, firestore
+from flask import Flask
+from app.routes import survey_bp
+
+app = Flask(__name__)
+app.register_blueprint(survey_bp)
+
 
 cred = credentials.Certificate('firestore-key.json')
 firebase_admin.initialize_app(cred)

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Export Data Survey</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" />
+
+</head>
+<body class="bg-gray-50 p-10">
+  <div class="max-w-7xl mx-auto bg-white p-8 shadow-md rounded-lg">
+    <h1 class="text-2xl font-bold text-blue-700 mb-6 text-center">Export Data Survei</h1>
+
+    <div class="mb-4 flex flex-wrap gap-4 justify-between">
+      <a href="/download_csv" class="px-6 py-3 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition">
+        📥 Download CSV
+      </a>
+            <button id="reset-filter" class="px-6 py-3 bg-gray-300 text-gray-800 rounded-md hover:bg-gray-400 transition">
+  🔄 Reset Filter
+</button>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 w-full">
+        <div class="relative">
+          <select id="filter-provinsi" class="select2 w-full p-2 border rounded-md">
+            <option value="">Semua Provinsi</option>
+          </select>
+        </div>
+        <div class="relative">
+          <select id="filter-kabupaten" class="select2 w-full p-2 border rounded-md">
+            <option value="">Semua Kabupaten</option>
+          </select>
+        </div>
+        <div class="relative">
+          <select id="filter-role" class="select2 w-full p-2 border rounded-md">
+            <option value="">Semua Role</option>
+          </select>
+        </div>
+        <div class="relative">
+          <select id="filter-kelas" class="select2 w-full p-2 border rounded-md">
+            <option value="">Semua Kelas</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="overflow-x-auto">
+      <table class="min-w-full divide-y divide-gray-200 text-sm">
+        <thead class="bg-blue-100">
+          <tr>
+            <th class="px-4 py-2 text-left">No</th>
+            <th class="px-4 py-2 text-left">Nama</th>
+            <th class="px-4 py-2 text-left">Role</th>
+            <th class="px-4 py-2 text-left">Kelas</th>
+            <th class="px-4 py-2 text-left">Provinsi</th>
+            <th class="px-4 py-2 text-left">Kabupaten</th>
+          </tr>
+        </thead>
+        <tbody id="table-body" class="divide-y divide-gray-200">
+          {% for item in data %}
+          <tr data-provinsi="{{ item.provinsi }}" data-role="{{ item.role }}" data-kabupaten="{{ item.kabupaten }}" data-kelas="{{ item.kelas }}">
+            <td class="px-4 py-2">{{ loop.index }}</td>
+            <td class="px-4 py-2">{{ item.nama }}</td>
+            <td class="px-4 py-2 capitalize">{{ item.role }}</td>
+            <td class="px-4 py-2">{{ item.kelas }}</td>
+            <td class="px-4 py-2">{{ item.provinsi }}</td>
+            <td class="px-4 py-2">{{ item.kabupaten }}</td>
+          </tr>
+          {% else %}
+          <tr><td colspan="6" class="text-center px-4 py-6 text-gray-500">Belum ada data.</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+<script>
+  $(document).ready(function () {
+    const rows = $("#table-body tr");
+
+    // Ambil nilai unik untuk setiap filter
+    function getUniqueValues(attr) {
+      const values = rows.map(function () {
+        return $(this).attr(attr);
+      }).get();
+      return [...new Set(values.filter(Boolean))].sort();
+    }
+
+    // Isi dropdown berdasarkan data
+    function fillSelect(id, attr) {
+      const select = $(`#${id}`);
+      getUniqueValues(attr).forEach(val => {
+        select.append(`<option value="${val}">${val}</option>`);
+      });
+
+      // Re-init select2 setelah opsi ditambahkan
+      select.select2({ width: 'resolve', placeholder: `Filter berdasarkan ${attr.replace('data-', '')}` });
+    }
+
+    fillSelect("filter-provinsi", "data-provinsi");
+    fillSelect("filter-kabupaten", "data-kabupaten");
+    fillSelect("filter-role", "data-role");
+    fillSelect("filter-kelas", "data-kelas");
+
+    const filters = {
+      "data-provinsi": "",
+      "data-kabupaten": "",
+      "data-role": "",
+      "data-kelas": ""
+    };
+
+    function applyFilters() {
+      rows.each(function () {
+        const row = $(this);
+        let visible = true;
+
+        for (const key in filters) {
+          const val = filters[key];
+          if (val && row.attr(key) !== val) {
+            visible = false;
+            break;
+          }
+        }
+
+        row.toggle(visible);
+      });
+    }
+
+    // Event binding untuk semua filter
+    $("#filter-provinsi, #filter-kabupaten, #filter-role, #filter-kelas").on("change", function () {
+      const id = $(this).attr("id").replace("filter-", "");
+      filters[`data-${id}`] = $(this).val();
+      applyFilters();
+    });
+  });
+
+      // Inisialisasi DataTables (setelah filtering selesai agar tidak konflik)
+    const dataTable = $("table").DataTable({
+      paging: true,
+      info: true,
+      searching: false // disable default search karena kita pakai Select2
+    });
+
+    // Tombol Reset Filter
+    $("#reset-filter").on("click", function () {
+      $("#filter-provinsi, #filter-kabupaten, #filter-role, #filter-kelas").val('').trigger('change');
+
+      // Kosongkan filter object
+      for (const key in filters) {
+        filters[key] = "";
+      }
+
+      // Tampilkan ulang semua baris
+      applyFilters();
+    });
+</script>
+
+</body>
+</html>

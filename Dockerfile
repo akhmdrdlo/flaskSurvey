@@ -1,20 +1,17 @@
-# Gunakan Python base image
 FROM python:3.11-slim
 
-# Set direktori kerja di container
+# Set working directory
 WORKDIR /app
 
-# Copy file app ke dalam container
-COPY . /app
-
-# Copy service account ke container (jika diperlukan)
-COPY firestore-key.json .
-
-# Install Firestore SDK
+# Copy dependency & install
+COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Expose port
-EXPOSE 5000
+# Copy the application
+COPY . .
 
-# Jalankan server menggunakan gunicorn
-CMD ["gunicorn", "-b", "0.0.0.0:5000", "main:app"]
+# Expose the default port Cloud Run uses
+EXPOSE 8080
+
+# Gunicorn command (assume your app object is in app.main)
+CMD ["gunicorn", "-b", "0.0.0.0:8080", "app.main:app"]

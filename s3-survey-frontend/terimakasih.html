@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Terima Kasih!</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    body {
+      background: linear-gradient(to bottom, #e0f7fa, #ffffff);
+    }
+    .glow {
+      animation: glow 2s ease-in-out infinite alternate;
+    }
+    @keyframes glow {
+      from {
+        box-shadow: 0 0 5px #38bdf8, 0 0 10px #38bdf8;
+      }
+      to {
+        box-shadow: 0 0 20px #0ea5e9, 0 0 30px #0ea5e9;
+      }
+    }
+    .star {
+      position: absolute;
+      top: -10px;
+      width: 12px;
+      height: 12px;
+      background: rgb(5, 94, 196);
+      clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+      opacity: 0.8;
+      animation: fall linear infinite;
+    }
+    @keyframes fall {
+      to {
+        transform: translateY(100vh);
+      }
+    }
+  </style>
+</head>
+<body class="flex items-center justify-center min-h-screen">
+  <div class="max-w-md mx-auto text-center p-8 bg-white rounded-2xl shadow-xl glow">
+    <h1 class="text-3xl font-bold text-blue-600">Terima Kasih!</h1>
+    <p class="mt-4 text-gray-600">Survei Anda telah berhasil dikirim. Kami sangat menghargai partisipasi Anda.</p>
+    <button onclick="starfall()" class="mt-6 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-900">Lepaskan Bintang ✨</button>
+  </div>
+
+  <script>
+    function starfall() {
+      for (let i = 0; i < 40; i++) {
+        const star = document.createElement('div');
+        const size = Math.random() * 10 + 5;
+        star.classList.add('star');
+        star.style.width = `${size}px`;
+        star.style.height = `${size}px`;
+        star.style.left = `${Math.random() * window.innerWidth}px`;
+        star.style.animationDuration = `${3 + Math.random() * 5}s`;
+        star.style.animationDelay = `${Math.random()}s`;
+        document.body.appendChild(star);
+
+        setTimeout(() => star.remove(), 10000);
+      }
+    }
+  </script>
+</body>
+</html>

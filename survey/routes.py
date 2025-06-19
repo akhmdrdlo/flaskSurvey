@@ -1,31 +1,31 @@
 import json
+from flask import Blueprint, request, jsonify
+from firebase_admin import credentials, firestore, initialize_app
 import os
-from flask import Blueprint, request, jsonify, render_template
-from google.cloud import firestore
-survey_bp = Blueprint(
-    'survey',
-    __name__,
-)
 
-# Initialize Firestore client
-db = firestore.Client()
+# Only initialize once
+if not firestore._apps:
+    cred = credentials.ApplicationDefault()  # gunakan default credentials (lebih aman)
+    initialize_app(cred)
 
-@survey_bp.route('/submit', methods=['POST'])
+db = firestore.client()
+survey_bp = Blueprint("survey", __name__)
+
+@survey_bp.route("/submit", methods=["POST"])
 def submit():
     data = request.get_json()
-
     if not data:
-        return jsonify({"error": "Invalid data"}), 400
+        return jsonify({"status": "error", "message": "Invalid data"}), 400
 
     try:
-        db.collection('responses').add({
+        db.collection("responses").add({
             **data,
-            'timestamp': firestore.SERVER_TIMESTAMP
+            "timestamp": firestore.SERVER_TIMESTAMP
         })
         return jsonify({"status": "success", "redirect": "/terimakasih"}), 200
     except Exception as e:
-        print(f"Firestore error: {e}")
-        return jsonify({"error": "Gagal menyimpan data"}), 500
+        return jsonify({"status": "error", "message": str(e)}), 500
+
 # def submit():
 #     data = request.get_json(silent=True)
 

@@ -1,0 +1,359 @@
+[
+    {
+        "id": 1,
+        "section" : "Tingkat Pemahaman tentang Ekoteologi",
+        "pertanyaan": "Apakah Anda pernah mendengar istilah ekoteologi?",
+        "tipe": "radio",
+        "opsi": ["Pernah", "Tidak Pernah"],
+        "role": "all"
+    },
+    {
+        "id": 2,
+        "section" : "Tingkat Pemahaman tentang Ekoteologi",
+        "pertanyaan": "Dari mana Anda mengetahui istilah ekoteologi? (Boleh lebih dari satu)",
+        "tipe": "checkbox",
+        "opsi": ["Guru di madrasah", "Buku atau pelajaran agama", "Media sosial atau berita", "Kegiatan ekstrakurikuler", "Orang Tua", "Lingkungan sekitar rumah", "Lainnya"],
+        "role": "all"
+    },
+    {
+        "id": 3,
+        "section" : "Tingkat Pemahaman tentang Ekoteologi",
+        "pertanyaan": "Saya memahami bahwa ekoteologi adalah istilah yang menghubungkan agama dengan kepedulian terhadap lingkungan.",
+        "tipe": "radio",
+        "opsi": ["Sangat Tidak Paham", "Tidak Paham", "Paham", "Sangat Paham"],
+        "role": "all"
+    },
+    {
+        "id": 4,
+        "section" : "Tingkat Pemahaman tentang Ekoteologi",
+        "pertanyaan": "Saya mengetahui bahwa agama Islam mengajarkan manusia untuk menjaga lingkungan sebagai bagian dari tugas sebagai khalifah di bumi.",
+        "tipe": "radio",
+        "opsi": ["Sangat Tidak Paham", "Tidak Paham", "Paham", "Sangat Paham"],
+        "role": "all"
+    },
+    {
+        "id": 5,
+        "section" : "Tingkat Pemahaman tentang Ekoteologi",
+        "pertanyaan": "Saya memahami bahwa Al-Qur’an dan Hadits mengajarkan tentang pentingnya menjaga keseimbangan lingkungan.",
+        "tipe": "radio",
+        "opsi": ["Sangat Tidak Paham", "Tidak Paham", "Paham", "Sangat Paham"],
+        "role": "all"
+    },
+    {
+        "id": 6,
+        "section" : "Tingkat Pemahaman tentang Ekoteologi", 
+        "pertanyaan": "Saya memahami bahwa merusak lingkungan adalah perbuatan yang dilarang dalam Islam.",
+        "tipe": "radio",
+        "opsi": ["Sangat Tidak Paham", "Tidak Paham", "Paham", "Sangat Paham"],
+        "role": "all"
+    },
+    {
+        "id": 7,
+        "section" : "Tingkat Pemahaman tentang Ekoteologi",
+        "pertanyaan": "Saya mengetahui ayat Al-Qur’an atau Hadits yang berkaitan dengan pelestarian lingkungan.",
+        "tipe": "radio",
+        "opsi": ["Sangat Tidak Paham", "Tidak Paham", "Paham", "Sangat Paham"],
+        "role": "all"
+    },
+    {
+        "id": 8,
+        "section" : "Tingkat Pemahaman tentang Ekoteologi",
+        "pertanyaan": "Saya menyadari bahwa pelestarian lingkungan adalah bagian dari ibadah dalam Islam.",
+        "tipe": "radio",
+        "opsi": ["Sangat Tidak Paham", "Tidak Paham", "Paham", "Sangat Paham"],
+        "role": "all"
+    },
+    {
+        "id": 9,
+        "section" : "Tingkat Pemahaman tentang Ekoteologi",
+        "pertanyaan": "Saya memahami bahwa kerusakan lingkungan dapat berdampak pada kehidupan manusia, seperti bencana alam dan krisis kesehatan.",
+        "tipe": "radio",
+        "opsi": ["Sangat Tidak Paham", "Tidak Paham", "Paham", "Sangat Paham"],
+        "role": "all"
+    },
+    {
+        "id": 10,
+        "section" : "Implementasi Ekoteologi dalam Pembelajaran di Madrasah",
+        "pertanyaan": "Guru pernah mengajarkan tentang pentingnya menjaga lingkungan menurut ajaran agama Islam.",
+        "tipe": "radio",
+        "opsi": ["Tidak Pernah Sama Sekali", "Pernah", "Sering", "Selalu"],
+        "role": "all"
+    },
+    {
+        "id": 11,
+        "section" : "Implementasi Ekoteologi dalam Pembelajaran di Madrasah",
+        "pertanyaan": "Mata pelajaran keagamaan di madrasah (contoh: Fikih dan Akidah Akhlak) membahas materi pelestarian lingkungan.",
+        "tipe": "radio",
+        "opsi": ["Tidak Pernah Sama Sekali", "Pernah", "Sering", "Selalu"],
+        "role": "all"
+    },
+    {
+        "id": 12,
+        "section" : "Implementasi Ekoteologi dalam Pembelajaran di Madrasah",
+        "pertanyaan": "Saya pernah mengikuti kegiatan berbasis ekoteologi di madrasah, seperti penghijauan, daur ulang sampah, atau hemat energi.",
+        "tipe": "radio",
+        "opsi": ["Tidak Pernah Sama Sekali", "Pernah", "Sering", "Selalu"],
+        "role": "all"
+    },
+    {
+        "id": 13,
+        "section" : "Implementasi Ekoteologi dalam Pembelajaran di Madrasah",
+        "pertanyaan": "Saya diajarkan bahwa membuang sampah sembarangan adalah perbuatan yang tidak sesuai dengan ajaran Islam.",
+        "tipe": "radio",
+        "opsi": ["Tidak Pernah Sama Sekali", "Pernah", "Sering", "Selalu"],
+        "role": "all"
+    },
+    {
+        "id": 14,
+        "section" : "Implementasi Ekoteologi dalam Pembelajaran di Madrasah",
+        "pertanyaan": "Di Madrasah tempat saya belajar memiliki program atau kebijakan untuk mendukung kelestarian lingkungan (misalnya: gerakan hemat energi, penghijauan, pengelolaan sampah).",
+        "tipe": "radio",
+        "opsi": ["Tidak Pernah Sama Sekali", "Pernah", "Sering", "Selalu"],
+        "role": "all"
+    },
+    {
+        "id": 15,
+        "section" : "Implementasi Ekoteologi dalam Pembelajaran di Madrasah",
+        "pertanyaan": "Guru saya menjelaskan bahwa menjaga lingkungan adalah bagian dari ajaran Islam.",
+        "tipe": "radio",
+        "opsi": ["Tidak Pernah Sama Sekali", "Pernah", "Sering", "Selalu"],
+        "role": "all"
+    },
+    {
+        "id": 16,
+        "section" : "Implementasi Ekoteologi dalam Pembelajaran di Madrasah",
+        "pertanyaan": "Saya pernah belajar tentang pengelolaan sampah dan pelestarian lingkungan sesuai ajaran agama Islam.",
+        "tipe": "radio",
+        "opsi": ["Tidak Pernah Sama Sekali", "Pernah", "Sering", "Selalu"],
+        "role": "all"
+    },
+    {
+        "id": 17,
+        "section" : "Implementasi Ekoteologi dalam Pembelajaran di Madrasah",
+        "pertanyaan": "Madrasah tempat saya belajar memiliki program khusus tentang pelestarian lingkungan.",
+        "tipe": "radio",
+        "opsi": ["Tidak Pernah Sama Sekali", "Pernah", "Sering", "Selalu"],
+        "role": "all"
+    },
+    {
+        "id": 18,
+        "section" : "Implementasi Ekoteologi dalam Pembelajaran di Madrasah",
+        "pertanyaan": "Saya pernah diberikan tugas atau proyek yang berkaitan dengan pelestarian lingkungan.",
+        "tipe": "radio",
+        "opsi": ["Tidak Pernah Sama Sekali", "Pernah", "Sering", "Selalu"],
+        "role": "all"
+    },
+    {
+        "id": 19,
+        "section" : "Implementasi Ekoteologi dalam Pembelajaran di Madrasah",
+        "pertanyaan": "Saya diajarkan untuk menerapkan pola hidup ramah lingkungan di madrasah, seperti hemat air dan listrik.",
+        "tipe": "radio",
+        "opsi": ["Tidak Pernah Sama Sekali", "Pernah", "Sering", "Selalu"],
+        "role": "all"
+    },
+    {
+        "id": 20,
+        "section": "Peran Guru dalam Menanamkan Kesadaran Ekoteologi",
+        "pertanyaan": "Guru memberikan contoh nyata dalam menjaga lingkungan.",
+        "tipe": "radio",
+        "opsi": ["Sangat Tidak Setuju", "Tidak Setuju", "Setuju", "Sangat Setuju"],
+        "role": "all"
+    },
+    {
+        "id": 21,
+        "section": "Peran Guru dalam Menanamkan Kesadaran Ekoteologi",
+        "pertanyaan": "Guru mengajarkan bahwa kepedulian terhadap lingkungan adalah ajaran agama Islam.",
+        "tipe": "radio",
+        "opsi": ["Sangat Tidak Setuju", "Tidak Setuju", "Setuju", "Sangat Setuju"],
+        "role": "all"
+    },
+    {
+        "id": 22,
+        "section": "Peran Guru dalam Menanamkan Kesadaran Ekoteologi",
+        "pertanyaan": "Guru memotivasi saya untuk berperilaku ramah lingkungan berdasarkan ajaran Islam.",
+        "tipe": "radio",
+        "opsi": ["Sangat Tidak Setuju", "Tidak Setuju", "Setuju", "Sangat Setuju"],
+        "role": "all"
+    },
+    {
+        "id": 23,
+        "section": "Peran Guru dalam Menanamkan Kesadaran Ekoteologi",
+        "pertanyaan": "Guru membimbing siswa dalam kegiatan pelestarian lingkungan di madrasah.",
+        "tipe": "radio",
+        "opsi": ["Sangat Tidak Setuju", "Tidak Setuju", "Setuju", "Sangat Setuju"],
+        "role": "all"
+    },
+    {
+        "id": 24,
+        "section": "Peran Guru dalam Menanamkan Kesadaran Ekoteologi",
+        "pertanyaan": "Saya merasa lebih peduli terhadap lingkungan setelah mendapatkan materi dari guru.",
+        "tipe": "radio",
+        "opsi": ["Sangat Tidak Setuju", "Tidak Setuju", "Setuju", "Sangat Setuju"],
+        "role": "all"
+    },
+    {
+        "id": 25,
+        "section": "Peran Guru dalam Menanamkan Kesadaran Ekoteologi",
+        "pertanyaan": "Guru saya menjelaskan hubungan antara agama dan lingkungan secara rutin dalam pembelajaran.",
+        "tipe": "radio",
+        "opsi": ["Sangat Tidak Setuju", "Tidak Setuju", "Setuju", "Sangat Setuju"],
+        "role": "all"
+    },
+    {
+        "id": 26,
+        "section": "Peran Guru dalam Menanamkan Kesadaran Ekoteologi",
+        "pertanyaan": "Guru mengajarkan pentingnya menjaga lingkungan dengan mengutip ayat Al-Qur’an dan Hadits.",
+        "tipe": "radio",
+        "opsi": ["Sangat Tidak Setuju", "Tidak Setuju", "Setuju", "Sangat Setuju"],
+        "role": "all"
+    },
+    {
+        "id": 27,
+        "section": "Peran Guru dalam Menanamkan Kesadaran Ekoteologi",
+        "pertanyaan": "Guru memberikan contoh nyata dalam menjaga lingkungan, seperti tidak membuang sampah sembarangan.",
+        "tipe": "radio",
+        "opsi": ["Sangat Tidak Setuju", "Tidak Setuju", "Setuju", "Sangat Setuju"],
+        "role": "all"
+    },
+    {
+        "id": 28,
+        "section": "Peran Guru dalam Menanamkan Kesadaran Ekoteologi",
+        "pertanyaan": "Guru mengajak siswa untuk terlibat langsung dalam aktivitas pelestarian lingkungan di madrasah.",
+        "tipe": "radio",
+        "opsi": ["Sangat Tidak Setuju", "Tidak Setuju", "Setuju", "Sangat Setuju"],
+        "role": "all"
+    },
+    {
+        "id": 29,
+        "section": "Peran Guru dalam Menanamkan Kesadaran Ekoteologi",
+        "pertanyaan": "Saya selalu menjaga kebersihan lingkungan karena bimbingan guru.",
+        "tipe": "radio",
+        "opsi": ["Sangat Tidak Setuju", "Tidak Setuju", "Setuju", "Sangat Setuju"],
+        "role": "all"
+    },
+    {
+        "id": 30,
+        "section": "Peran Guru dalam Menanamkan Kesadaran Ekoteologi",
+        "pertanyaan": "Guru mengajak siswa berdiskusi tentang ekoteologi dan pelestarian lingkungan.",
+        "tipe": "radio",
+        "opsi": ["Sangat Tidak Setuju", "Tidak Setuju", "Setuju", "Sangat Setuju"],
+        "role": "all"
+    },
+    {
+        "id": 31,
+        "section": "Peran Guru dalam Menanamkan Kesadaran Ekoteologi",
+        "pertanyaan": "Guru menjelaskan hubungan ekoteologi dengan kehidupan sehari-hari.",
+        "tipe": "radio",
+        "opsi": ["Sangat Tidak Setuju", "Tidak Setuju", "Setuju", "Sangat Setuju"],
+        "role": "all"
+    },
+    {
+        "id": 32,
+        "section": "Tantangan dan Peluang Penerapan Ekoteologi di Madrasah",
+        "pertanyaan": "Apa kendala terbesar penerapan ekoteologi di madrasah?",
+        "tipe": "checkbox",
+        "opsi": [
+            "Saya belum paham apa itu ekoteologi",
+            "Madrasah kurang memperhatikan kebersihan dan kenyamanan lingkungan",
+            "Ekoteologi jarang dibahas di mata pelajaran",
+            "Sarana dan prasarana yang kurang pendukung (contoh: kurangnya lahan hujau, tidak ada tempat memilah sampah, toilet kotor)",
+            "Tidak ada program khusus terkait ekoteologi di madrasah",
+            "Lainnya"
+        ],
+        "role": "MTs_MA"
+    },
+    {
+        "id": 33,
+        "section": "Tantangan dan Peluang Penerapan Ekoteologi di Madrasah",
+        "pertanyaan": "Terkait dengan pelestarian lingkungan, program apa yang efektif diterapkan di madrasah sesuai dengan ajaran Agama Islam?",
+        "tipe": "checkbox",
+        "opsi": [
+            "Program penghijauan",
+            "Gerakan hemat sumber daya (air, listrik, dan lain-lain)",
+            "Pengelolaan/ daur ulang sampah",
+            "Pemilahan sampah",
+            "Sosialisasi tentang pentingnya menjaga lingkungan",
+            "Kegiatan keagamaan yang menekankan kepedulian lingkungan",
+            "Lainnya"
+        ],
+        "role": "MTs_MA"
+    },
+    {
+        "id": 34,
+        "section": "Dampak Pendidikan Berbasis Ekoteologi terhadap Kesadaran Siswa",
+        "pertanyaan": "Saya menjadi lebih sadar bahwa menjaga lingkungan itu penting.",
+        "tipe": "radio",
+        "opsi": ["Sangat Tidak Setuju", "Tidak Setuju", "Setuju", "Sangat Setuju"],
+        "role": "all"
+    },
+    {
+        "id": 35,
+        "section": "Dampak Pendidikan Berbasis Ekoteologi terhadap Kesadaran Siswa",
+        "pertanyaan": "Saya menjadi terbiasa menjaga lingkungan setelah mendapatkan materi ekoteologi di madrasah.",
+        "tipe": "radio",
+        "opsi": ["Sangat Tidak Setuju", "Tidak Setuju", "Setuju", "Sangat Setuju"],
+        "role": "all"
+    },
+    {
+        "id": 36,
+        "section": "Dampak Pendidikan Berbasis Ekoteologi terhadap Kesadaran Siswa",
+        "pertanyaan": "Saya menjadi terbiasa menghemat air, mengurangi penggunaan plastik, dan membuang sampah pada tempatnya di luar madrasah.",
+        "tipe": "radio",
+        "opsi": ["Sangat Tidak Setuju", "Tidak Setuju", "Setuju", "Sangat Setuju"],
+        "role": "all"
+    },
+    {
+        "id": 37,
+        "section": "Dampak Pendidikan Berbasis Ekoteologi terhadap Kesadaran Siswa",
+        "pertanyaan": "Saya merasa bertanggung jawab untuk menjaga kelestarian lingkungan.",
+        "tipe": "radio",
+        "opsi": ["Sangat Tidak Setuju", "Tidak Setuju", "Setuju", "Sangat Setuju"],
+        "role": "all"
+    },
+    {
+        "id": 38,
+        "section": "Dampak Pendidikan Berbasis Ekoteologi terhadap Kesadaran Siswa",
+        "pertanyaan": "Saya akan berperan aktif dalam kegiatan lingkungan di madrasah dan masyarakat.",
+        "tipe": "radio",
+        "opsi": ["Sangat Tidak Setuju", "Tidak Setuju", "Setuju", "Sangat Setuju"],
+        "role": "all"
+    },
+    {
+        "id": 39,
+        "section": "Dampak Pendidikan Berbasis Ekoteologi terhadap Kesadaran Siswa",
+        "pertanyaan": "Saya percaya bahwa ekoteologi harus lebih banyak diajarkan di madrasah agar siswa lebih peduli terhadap lingkungan.",
+        "tipe": "radio",
+        "opsi": ["Sangat Tidak Setuju", "Tidak Setuju", "Setuju", "Sangat Setuju"],
+        "role": "all"
+    },
+    {
+        "id": 40,
+        "section": "Dampak Pendidikan Berbasis Ekoteologi terhadap Kesadaran Siswa",
+        "pertanyaan": "Saya lebih sering menerapkan kebiasaan ramah lingkungan setelah mendapatkan materi ekoteologi di madrasah.",
+        "tipe": "radio",
+        "opsi": ["Sangat Tidak Setuju", "Tidak Setuju", "Setuju", "Sangat Setuju"],
+        "role": "all"
+    },
+    {
+        "id": 41,
+        "section": "Dampak Pendidikan Berbasis Ekoteologi terhadap Kesadaran Siswa",
+        "pertanyaan": "Saya lebih sadar akan bahaya lingkungan akibat tindakan manusia yang tidak menjaga lingkungan.",
+        "tipe": "radio",
+        "opsi": ["Sangat Tidak Setuju", "Tidak Setuju", "Setuju", "Sangat Setuju"],
+        "role": "all"
+    },
+    {
+        "id": 42,
+        "section": "Saran dan Harapan",
+        "pertanyaan": "Apa saran Anda agar pembelajaran ekoteologi lebih menarik dan efektif di madrasah?",
+        "tipe": "textarea",
+        "role": "MTs_MA"
+    },
+    {
+        "id": 43,
+        "section": "Saran dan Harapan",
+        "pertanyaan": "Apa harapan Anda terhadap penerapan program-program ekoteologi di madrasah?",
+        "tipe": "textarea",
+        "role": "MTs_MA"
+    }
+  ]
